@@ -1,4 +1,5 @@
 FROM debian:8.2
+ARG JENKINSPW=jenkins
 
 RUN apt-get update && \
 	DEBIAN_FRONTEND=noninteractive apt-get install -y \
@@ -33,7 +34,7 @@ COPY compiler-clang.properties /build
 
 # Jenkins user.
 RUN useradd -m jenkins && \
-	echo "jenkins:jenkins" | chpasswd
+	echo "jenkins:$JENKINSPW" | chpasswd
 
 # SSH server.
 RUN mkdir -p /var/run/sshd && \
